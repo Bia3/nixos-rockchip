@@ -94,9 +94,9 @@
           kernel = (kernel system).linux_6_1_rockchip;
           extraModules = [ ];
         };
-        "NanoPiR2" = {
+        "NanoPiR2S" = {
           uBoot = (uBoot system).uBootNanoPiR2S;
-          kernel = (kernel system).linux_6_6_rockchip;
+          kernel = (kernel system).linux_6_8_rockchip;
           extraModules = [ ];
         };
       };
@@ -137,8 +137,8 @@
       legacyPackages = {
         kernel_linux_6_1_rockchip = (kernel system).linux_6_1_rockchip;
         kernel_linux_6_6_rockchip = (kernel system).linux_6_6_rockchip;
-        kernel_linux_6_6_pinetab = (kernel system).linux_6_6_pinetab;
         kernel_linux_6_8_rockchip = (kernel system).linux_6_8_rockchip;
+        kernel_linux_6_6_pinetab = (kernel system).linux_6_6_pinetab;
       };
       packages = (images system) // {
         uBootQuartz64A = (uBoot system).uBootQuartz64A;
