@@ -46,6 +46,10 @@ in with pkgs.linuxKernel; {
   linux_6_6_rockchip = packagesFor
     (kernels.linux_6_6.override { structuredExtraConfig = kernelConfig; });
 
+  linux_6_8 = pkgs.linuxPackages_6_8;
+  linux_6_8_rockchip = packagesFor
+    (kernels.linux_6_8.override { structuredExtraConfig = kernelConfig; });
+
   linux_6_6_pinetab = packagesFor (kernels.linux_6_6.override {
     argsOverride = {
       src = pkgs.fetchFromGitHub {

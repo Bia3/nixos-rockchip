@@ -94,6 +94,11 @@
           kernel = (kernel system).linux_6_1_rockchip;
           extraModules = [ ];
         };
+        "NanoPiR2" = {
+          uBoot = (uBoot system).uBootNanoPiR2S;
+          kernel = (kernel system).linux_6_6_rockchip;
+          extraModules = [ ];
+        };
       };
 
       osConfigs = system:
@@ -133,6 +138,7 @@
         kernel_linux_6_1_rockchip = (kernel system).linux_6_1_rockchip;
         kernel_linux_6_6_rockchip = (kernel system).linux_6_6_rockchip;
         kernel_linux_6_6_pinetab = (kernel system).linux_6_6_pinetab;
+        kernel_linux_6_8_rockchip = (kernel system).linux_6_8_rockchip;
       };
       packages = (images system) // {
         uBootQuartz64A = (uBoot system).uBootQuartz64A;
@@ -148,6 +154,8 @@
         uBootSoQuartzBlade = (uBoot system).uBootSoQuartzBlade;
 
         uBootOrangePiCM4 = (uBoot system).uBootOrangePiCM4;
+
+        uBootNanoPiR2S = (uBoot system).uBootNanoPiR2S;
       };
       formatter = (import inputs.nixpkgsStable { inherit system; }).nixfmt;
     });
