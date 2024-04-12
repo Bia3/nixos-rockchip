@@ -96,8 +96,8 @@
         };
         "NanoPiR2S" = {
           uBoot = (uBoot system).uBootNanoPiR2S;
-          kernel = (kernel system).linux_6_8_rockchip;
-          extraModules = [ ];
+          kernel = (kernel system).linux_6_6_rockchip;
+          extraModules = [ noZFS ];
         };
       };
 
@@ -137,7 +137,7 @@
       legacyPackages = {
         kernel_linux_6_1_rockchip = (kernel system).linux_6_1_rockchip;
         kernel_linux_6_6_rockchip = (kernel system).linux_6_6_rockchip;
-        kernel_linux_6_8_rockchip = (kernel system).linux_6_8_rockchip;
+        kernel_linux_6_7_rockchip = (kernel system).linux_6_7_rockchip;
         kernel_linux_6_6_pinetab = (kernel system).linux_6_6_pinetab;
       };
       packages = (images system) // {
