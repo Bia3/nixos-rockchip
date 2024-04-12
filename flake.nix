@@ -132,6 +132,7 @@
         sdImageRockchip = import ./modules/sd-card/sd-image-rockchip.nix;
         dtOverlayQuartz64ASATA = import ./modules/dt-overlay/quartz64a-sata.nix;
         dtOverlayPCIeFix = import ./modules/dt-overlay/pcie-fix.nix;
+        randomMAC = import ./modules/nanopi/randommac.nix;
       };
     } // inputs.utils.lib.eachDefaultSystem (system: {
       legacyPackages = {
