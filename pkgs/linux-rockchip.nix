@@ -63,5 +63,9 @@ in with pkgs.linuxKernel; {
     };
     structuredExtraConfig = kernelConfig;
   });
+  
+  linux_6_8 = pkgs.linuxPackages_6_8;
+  linux_6_8_rockchip = packagesFor
+    (kernels.linux_6_8.override { structuredExtraConfig = kernelConfig; });
 }
 

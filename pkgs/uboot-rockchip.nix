@@ -65,6 +65,20 @@ let
       inherit defconfig;
       BL31 = "${pkgs.armTrustedFirmwareRK3328}/bl31.elf";
     };
+  buildRK3328UBootNanpopiR2s = defconfig:
+    let
+      rkbin = fetchFromGitHub {
+          owner = "rockchip-linux";
+          repo = "rkbin";
+          rev = "b4558da0860ca48bf1a571dd33ccba580b9abe23";
+          sha256 = "KUZQaQ+IZ0OynawlYGW99QGAOmOrGt2CZidI3NTxFw8=";
+      };
+    in
+    buildPatchedUBoot {
+      inherit defconfig;
+      BL31 = "${pkgs.armTrustedFirmwareRK3328}/bl31.elf";
+      ROCKCHIP_TPL = (rkbin + "/bin/rk33/rk3328_ddr_333MHz_v1.18.bin");
+    };
   buildRK3399UBoot = defconfig:
     buildPatchedUBoot {
       inherit defconfig;
