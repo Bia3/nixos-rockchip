@@ -6,8 +6,8 @@ let
     CHARGER_RK817 = yes;
     COMMON_CLK_RK808 = yes;
     COMMON_CLK_ROCKCHIP = yes;
+    DRM_ROCKCHIP = yes;
     GPIO_ROCKCHIP = yes;
-    MFD_RK808 = yes;
     MMC_DW = yes;
     MMC_DW_ROCKCHIP = yes;
     MMC_SDHCI_OF_DWCMSHC = yes;
@@ -37,35 +37,48 @@ let
     STMMAC_ETH = yes;
     VIDEO_HANTRO_ROCKCHIP = yes;
   };
+  pinetabKernelConfig = with lib.kernel; {
+    BES2600 = module;
+    BES2600_5GHZ_SUPPORT = yes;
+    BES2600_DEBUGFS = yes;
+
+    DRM_PANEL_BOE_TH101MB31UIG002_28A = yes;
+  };
 in with pkgs.linuxKernel; {
-  linux_6_1 = pkgs.linuxPackages_6_1;
-  linux_6_1_rockchip = packagesFor
-    (kernels.linux_6_1.override { structuredExtraConfig = kernelConfig; });
-
   linux_6_6 = pkgs.linuxPackages_6_6;
-  linux_6_6_rockchip = packagesFor
-    (kernels.linux_6_6.override { structuredExtraConfig = kernelConfig; });
+  linux_6_6_rockchip = packagesFor (kernels.linux_6_6.override {
+    structuredExtraConfig = kernelConfig;
+    kernelPatches = [{
+      name = "Fix nvme on rk3566";
+      patch = ./fix-nvme.patch;
+    }];
+  });
 
-  linux_6_7 = pkgs.linuxPackages_6_8;
-  linux_6_7_rockchip = packagesFor
-    (kernels.linux_6_7.override { structuredExtraConfig = kernelConfig; });
+  linux_6_12 = pkgs.linuxPackages_6_12;
+  linux_6_12_rockchip = packagesFor (kernels.linux_6_12.override {
+    structuredExtraConfig = kernelConfig;
+    kernelPatches = [{
+      name = "Fix nvme on rk3566";
+      patch = ./fix-nvme.patch;
+    }];
+  });
 
-  linux_6_6_pinetab = packagesFor (kernels.linux_6_6.override {
+  linux_6_12_pinetab = packagesFor (kernels.linux_6_12.override {
     argsOverride = {
       src = pkgs.fetchFromGitHub {
         owner = "dreemurrs-embedded";
         repo = "linux-pinetab2";
-        rev = "81e3aa387e0dcb349e0d3f3c05f2f62742f814d7";
-        sha256 = "kkO54FbexUuuvZNFDuTtFMokBgKrCZXTQDCzsSRZNDE=";
+        rev = "c20c98ab973a6042508dea01c152d7e4a486adea";
+        sha256 = "nOhz8IVhsc3MNdSBgdrAANWUzfYodiR6QIo5WfKmrMM=";
       };
-      version = "6.6.8-danctnix1";
-      modDirVersion = "6.6.8-danctnix1";
+      version = "6.12.9-danctnix2";
+      modDirVersion = "6.12.9-danctnix2";
     };
-    structuredExtraConfig = kernelConfig;
+    kernelPatches = [{
+      name = "Enable backlight in defconfig";
+      patch = ./backlight.patch;
+    }];
+    structuredExtraConfig = kernelConfig // pinetabKernelConfig;
   });
-  
-  linux_6_8 = pkgs.linuxPackages_6_8;
-  linux_6_8_rockchip = packagesFor
-    (kernels.linux_6_8.override { structuredExtraConfig = kernelConfig; });
 }
 

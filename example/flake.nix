@@ -3,7 +3,7 @@
 
   inputs = {
     utils.url = "github:numtide/flake-utils";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
 
     rockchip = { url = "github:nabam/nixos-rockchip"; };
   };
@@ -33,8 +33,6 @@
               boot.kernelPackages =
                 inputs.rockchip.legacyPackages.${buildPlatform}.kernel_linux_6_6_rockchip;
             }
-
-            inputs.rockchip.nixosModules.noZFS # ZFS is broken on kernel from unstable
           ];
         };
     in {
